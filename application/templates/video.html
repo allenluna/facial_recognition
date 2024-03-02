@@ -1,0 +1,112 @@
+{% extends "base.html" %} {% block title %} Facial Recognition {% endblock %} {%
+block body %}
+
+<section class="videocam">
+  <div class="container">
+    <div class="video-section">
+      <!-- image section -->
+      <div class="add-1 vid-section face-lock">
+        <div class="face-lock-summary">
+          <div class="img-wrapper-data img-wrapper">
+            <img id="photoStream" src="../static/assets/hero.png" />
+          </div>
+          <h2 id="photoTitle">Hello. Take your photo</h2>
+          <a class="take-photo" id="openCamera">Open Camera</a>
+          <a class="take-photo close-camera" id="closeCamera">Close Camera</a>
+        </div>
+      </div>
+
+      <!-- form table section -->
+      <div class="add-2 inputsection">
+        <h2 class="title">Take Photo</h2>
+        <div class="card p-3">
+          <form id="studForm" class="row g-3 needs-validation" method="POST">
+            <div class="col-md-6">
+              <label for="validationServer01" class="form-label"
+                >First name</label
+              >
+              <input
+                type="text"
+                class="form-control inputField firstname"
+                id="firstname" />
+              <div class="valid-feedback">Good!</div>
+            </div>
+            <div class="col-md-6">
+              <label for="validationServer01" class="form-label"
+                >Last name</label
+              >
+              <input
+                type="text"
+                class="form-control inputField lastname"
+                id="lastname" />
+              <div class="valid-feedback">Good!</div>
+            </div>
+            <div class="col-md-12">
+              <label for="validationServer01" class="form-label">Address</label>
+              <input
+                type="text"
+                class="form-control inputField address"
+                id="address" />
+              <div class="valid-feedback">Good!</div>
+            </div>
+            <div class="col-md-12">
+              <label for="validationServer01" class="form-label"
+                >Phone number</label
+              >
+              <input type="text" class="form-control inputField" id="number" />
+              <div class="valid-feedback">Good!</div>
+            </div>
+            <button
+              id="saveDatabase"
+              class="saveData"
+              data-bs-toggle="modal"
+              data-bs-target="#trainImage">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="trainImage"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="trainImageLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="trainImageLabel">Train Image</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="trainStudent"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="trainButton"
+          id="trainStudentImage"
+          data-bs-dismiss="modal">
+          Train Image
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block script %}
+
+<script src="../static/js/form.js"></script>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block title %} Dashboard {% endblock %} {% block
+body %}
+
+<section class="dashboard">
+  <h2 class="dashboard-title">Attendance Monitoring Dashboard</h2>
+  <div class="row rol-cols-sm-1 row-cols-lg-2 g-2">
+    <div class="col">
+      <div class="row rol-cols-sm-2 row-cols-lg-4 g-2">
+        <div class="col">
+          <div class="card card-1 card-item">
+            <div class="title">
+              <h5>Students</h5>
+              <span><i class="bi bi-people-fill"></i></span>
+            </div>
+            <div class="stud-length">
+              <p>{{students | length}}</p>
+              <span>+Students</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-2 card-item">
+            <div class="title">
+              <h5>Present</h5>
+              <span><i class="bi bi-person-fill-check"></i></span>
+            </div>
+            <div class="stud-length">
+              <p>{{present}}</p>
+              <span>+Students</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-3 card-item">
+            <div class="title">
+              <h5>Late</h5>
+              <span><i class="bi bi-person-fill-exclamation"></i></span>
+            </div>
+            <div class="stud-length">
+              <p>{{late}}</p>
+              <span>+Students</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-4 card-item">
+            <div class="title">
+              <h5>Absents</h5>
+              <span><i class="bi bi-person-fill-x"></i></span>
+            </div>
+            <div class="stud-length">
+              <p>{{absent}}</p>
+              <span>+Students</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 py-3">
+        <h3 class="text-center">Attendance Weekly Status</h3>
+        <canvas class="dashboard-chart" id="presentChart"></canvas>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card present-card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %} {% block script %}
+<!-- chart js script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../static/js/dashboard.js"></script>
+
+{% endblock %}
