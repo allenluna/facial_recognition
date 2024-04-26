@@ -61,6 +61,7 @@ def append_attendance(id):
                     stud_status = Status(
                         firstname=filter_present_student.firstname,
                         lastname=filter_present_student.lastname,
+                        position=filter_present_student.position,
                         address=filter_present_student.address,
                         number=filter_present_student.number,
                         status="Present",
@@ -92,6 +93,7 @@ def append_attendance(id):
                     stud_status = Status(
                         firstname=filter_present_student.firstname,
                         lastname=filter_present_student.lastname,
+                        position=filter_present_student.position,
                         address=filter_present_student.address,
                         number=filter_present_student.number,
                         status="Late",
@@ -137,6 +139,7 @@ def append_attendance(id):
                         stud_status = Status(
                             firstname=stud_exists.firstname,
                             lastname=stud_exists.lastname,
+                            position=stud_exists.position,
                             address=stud_exists.address,
                             number=stud_exists.number,
                             status="Absent",

@@ -75,6 +75,7 @@ document.querySelector("#saveDatabase").addEventListener("click", e => {
     let studentData = studentForm()
     let firstname = document.querySelector("#firstname");
     let lastname = document.querySelector("#lastname")
+    let position = document.querySelector("#position")
     let address = document.querySelector("#address")
     let number = document.querySelector("#number")
     fetch("/add/add-student-data", {
@@ -93,6 +94,9 @@ document.querySelector("#saveDatabase").addEventListener("click", e => {
         }else if(lastname.value == ""){
             lastname.classList.remove("is-valid")
             lastname.classList.add("is-invalid")
+        }else if(position.value == ""){
+            position.classList.remove("is-valid")
+            position.classList.add("is-invalid")
         }else if(address.value == ""){
             address.classList.remove("is-valid")
             address.classList.add("is-invalid")
@@ -135,12 +139,14 @@ const studentToTrain = (data) => {
 const studentForm = () => {
     let firstname = document.querySelector("#firstname");
     let lastname = document.querySelector("#lastname")
+    let position = document.querySelector("#position")
     let address = document.querySelector("#address")
     let number = document.querySelector("#number")
 
     let newForm = new FormData()
     newForm.append("firstname", firstname.value)
     newForm.append("lastname", lastname.value)
+    newForm.append("position", position.value)
     newForm.append("address", address.value)
     newForm.append("number", number.value)
 

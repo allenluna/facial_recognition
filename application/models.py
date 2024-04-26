@@ -2,10 +2,11 @@ from . import db
 
 
 class Student(db.Model):
-    __tablename__ = "students"
+    __tablename__ = "employee"
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String)
     lastname = db.Column(db.String)
+    position = db.Column(db.String)
     address = db.Column(db.String)
     number = db.Column(db.String)
     status = db.Column(db.String)
@@ -14,10 +15,11 @@ class Student(db.Model):
 
 
 class Status(db.Model):
-    __tablename__ = "students_status"
+    __tablename__ = "employee_status"
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String)
     lastname = db.Column(db.String)
+    position = db.Column(db.String)
     address = db.Column(db.String)
     number = db.Column(db.String)
     status = db.Column(db.String)

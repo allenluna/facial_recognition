@@ -12,19 +12,20 @@ student = Blueprint("student", __name__)  # blueprint of the student file
 # where the image of the student save
 FILE_IMAGE_TO_SAVE = os.path.realpath("application/static/img")
 
-global IMAGE_CAPTURE, IMAGE_NAME, FACE_DETECT, image_url, FACE_VERIFEID
+global IMAGE_CAPTURE, IMAGE_NAME, FACE_DETECT, image_url, FACE_VERIFEID, count, capture_count
 IMAGE_CAPTURE = 0
 IMAGE_NAME = ""
 START = 1
 FACE_DETECT = 0
 count = 0
+capture_count = 0
 
 videoCam = cv2.VideoCapture(0)
 
 face_detect = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
-recognizer = cv2.face.LBPHFaceRecognizer.create()
+recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 if os.path.exists(os.path.realpath(f"application/static/trainer/images.yml")):
     recognizer.read(os.path.realpath(f"application/static/trainer/images.yml"))
@@ -47,7 +48,7 @@ def train_faces():
 
 
 def student_camera():
-    global IMAGE_CAPTURE, IMAGE_NAME, FACE_DETECT, list_img, list_recognizer
+    global IMAGE_CAPTURE, IMAGE_NAME, FACE_DETECT, list_img, list_recognizer, capture_count
 
     while True:
         success, frame = videoCam.read()  # read the camera frame
@@ -65,11 +66,24 @@ def student_camera():
             )
 
             if IMAGE_CAPTURE == 1:
-                IMAGE_CAPTURE = 0
-
-                for (x, y, w, h) in faces:
-                    cv2.imwrite(
-                        f"{FILE_IMAGE_TO_SAVE}/{IMAGE_NAME}.{count}.png", gray[y:y+h, x:x+w])
+                if capture_count < 3:
+                    capture_count += 1
+                    print(capture_count)
+                    IMAGE_CAPTURE = 0
+                    for (x, y, w, h) in faces:
+                        cv2.imwrite(
+                            f"{FILE_IMAGE_TO_SAVE}/{IMAGE_NAME}.{count}.png", gray[y:y+h, x:x+w])
+                        
+            # if IMAGE_CAPTURE == 1:
+            #     if capture_count < 3:
+            #         print(capture_count)
+            #         for (x, y, w, h) in faces:
+            #             cv2.imwrite(
+            #                 f"{FILE_IMAGE_TO_SAVE}/{IMAGE_NAME}.{capture_count}.png", gray[y:y+h, x:x+w])
+            #         capture_count += 1
+            #     else:
+            #         capture_count = 0  # Reset capture count after capturing 3 faces
+            #         IMAGE_CAPTURE = 0 
 
             if FACE_DETECT == 1:
                 if os.path.exists(os.path.realpath(f"application/static/trainer/images.yml")):
@@ -170,6 +184,7 @@ def addStudent():
     if request.method == "POST":
         firstname = request.form.get("firstname").title()
         lastname = request.form.get("lastname").title()
+        position = request.form.get("position").title()
         address = request.form.get("address")
         number = request.form.get("number")
 
@@ -188,10 +203,11 @@ def addStudent():
         elif len(number) < 11:
             return {"message": "Phone number should be lenght of 11 numbers"}
         else:
-            global IMAGE_NAME, IMAGE_CAPTURE, count
+            global IMAGE_NAME, IMAGE_CAPTURE, count, capture_count
             new_data = Student(
                 firstname=firstname,
                 lastname=lastname,
+                position=position,
                 address=address,
                 number=number,
             )
@@ -203,6 +219,7 @@ def addStudent():
             count = new_data.id
             updateId = Student.query.get(count)
             updateId.image_url = f"{firstname}.{count}.png"
+            
             IMAGE_CAPTURE = 1
             db.session.commit()
 
